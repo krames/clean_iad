@@ -41,7 +41,7 @@ end
 
 def clean_compute_v1
   log "Cleaning Compute V1"
-  compute = Fog::Compute.new service_params(:provider => 'rackspace', :version => :v2)
+  compute = Fog::Compute.new service_params(:provider => 'rackspace', :version => :v1)
   
   clean compute.servers
 rescue => e
