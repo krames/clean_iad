@@ -95,7 +95,15 @@ def clean_monitoring
   log "Clean monitoring"
   
   service = Fog::Rackspace::Monitoring.new service_params
-  clean(service.entities)
+  service.entities.each do |e|
+    e.checks {|c| clean(c) }
+    e.alarms {|a| clean(a) }
+    clean e
+  end
+  
+  clean service.agent_tokens
+  clean service.notifications
+  
 rescue => e
   puts "Unable to delete monitoring - #{e}"
 end
@@ -156,5 +164,5 @@ clean_compute_v2
 clean_storage
 clean_load_balancers
 clean_databases
-# clean_monitoring
+clean_monitoring
 clean_queues
