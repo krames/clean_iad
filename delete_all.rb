@@ -44,6 +44,7 @@ def clean_compute_v1
   compute = Fog::Compute.new service_params(:provider => 'rackspace', :version => :v1)
   
   clean compute.servers
+  clean compute.images
 rescue => e
   puts "Unable to delete compute v1 - #{e}"
 end
